@@ -13,13 +13,13 @@ Data of Every montn new covid confirm cases in Kerala in the year 2020
 
           Date (2020)      	New Confirmed Cases
           January	                  1
-          Feb                     	2
-          Mar                     	238
-          Apr                     	253
-          May                      	759
-          Jun                      	3,134
-          Jul	                      18,893
-          Aug                      	48,436
-          Sep	                      117,901
-          Oct                     	1,89,622
+          Feb                         2
+          Mar                        238
+          Apr                        253
+          May                        759
+          Jun                       3,134
+          Jul	                18,893
+          Aug                       48,436
+          Sep	                1,17,901
+          Oct                       1,89,622
           Nov                       88,835

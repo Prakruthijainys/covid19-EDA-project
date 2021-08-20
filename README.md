@@ -7,3 +7,19 @@ On 12 may 2021 Kerala reported the largest single day spike with 43,529 new case
 During 27-28 july 2020 Kerala reported 22,129 and 22,056 new cases per day respectively.
 As of 15 august 2021, there have been 33,90,123 confirmed cases in kerala.
 In kerala, high number of cases being reported in March, by april 30, reduced the rate of increase of new cases to less than 0.25% per day. 
+
+Data of Every montn new covid confirm cases in Kerala in the year 2020
+
+
+          Date (2020)      	New Confirmed Cases
+          January	                  1
+          Feb                     	2
+          Mar                     	238
+          Apr                     	253
+          May                      	759
+          Jun                      	3,134
+          Jul	                      18,893
+          Aug                      	48,436
+          Sep	                      117,901
+          Oct                     	1,89,622
+          Nov                       88,835

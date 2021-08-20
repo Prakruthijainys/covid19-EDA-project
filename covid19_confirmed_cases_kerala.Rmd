@@ -1,0 +1,754 @@
+---
+title: covid19_confirmed_cases_in_kerala
+output: html_document
+By prakruthi jain YS
+   
+
+Load dataset
+```{r}
+##loading dataset
+data=read.csv("Covid 19 Confirmed Cases-Kerala.csv")
+```
+
+head() :shows top few rows in dataset by default it shows the first 6 rows
+```{r}
+##to get first few row
+head(data)
+```
+
+shows top 3 rows in the dataset 
+```{r}
+##to get first 3 row
+head(data, n=3)
+```
+
+to extract data of particular column 
+```{r}
+head(data$Confirmed)
+data$Confirmed[3]
+data$Confirmed[1:6]
+```
+
+tail() :shows last few rows in dataset by default it shows the last 6 rows
+```{r}
+##to get last few row
+tail(data)
+```
+
+displays selected rows and columns
+```{r}
+##displays 3rd row and 2nd column
+data[3,2]
+```
+
+as.matrix() converts dataframe into matrix
+```{r}
+head(as.matrix(data))
+```
+
+rbind() and cbind() create matrices by combining several vectors of same length
+```{r}
+##rbind() combines as rows
+head(rbind(data))
+##cbind() combines vectors as column
+head(cbind(data))
+```
+
+attach() function used to access the variables present in the data framework without calling the dataframe
+```{r}
+data1 = attach(data)
+data1
+```
+
+stack() used to transform data available as separate columns in a dataframe or list into a single column
+```{r}
+head(stack(data))
+```
+
+sort() command sort data in order by default sorts in ascending order
+```{r}
+##to sort data
+head(sort(data$Confirmed))
+```
+
+order( ) is same as sort() command 
+```{r}
+head(order(data$Confirmed))
+```
+
+length() :command used to determine the number of items in an dataset
+```{r}
+## to determine number of items
+length(data)
+```
+
+dimnames() gives names of both rows and column
+```{r}
+##to see row and column names
+dimnames(data)
+```
+
+class() :command used to see type of data
+```{r}
+##class() to obtain info about the type of object
+class(dimnames(data))
+class(data)
+class(data$Date)
+class(data$Confirmed)
+```
+
+str() command shows structure of data
+```{r}
+##structure of dataset
+str(data)
+```
+
+structure returns the data with further attributes set
+```{r}
+head(structure(data))
+```
+
+summary() command used to get information about the data
+```{r}
+##summary of dataset
+summary(data)
+summary(data$Confirmed)
+```
+
+statistics of data(mean,median,max,min,mode,standard deviation, variance, mad)
+```{r}
+##mean of confirmed
+mean(data$Confirmed)
+##median of confirmed
+median(data$Confirmed)
+##maximum number in confirmed column
+max(data$Confirmed)
+##mode of confirmed data
+mode(data$Confirmed)
+##minimum value in confirmed data
+min(data$Confirmed)
+##standard deviation of confirmed data
+sd(data$Confirmed)
+##variance in confirmed data
+var(data$Confirmed)
+##median absolute deviation of confirmed data
+mad(data$Confirmed)
+```
+
+quantile of confirmed data with 25th, 50th, 75th percentile
+```{r}
+##quantile 25%,50%,75%
+quantile(data$Confirmed, 0.25)
+quantile(data$Confirmed, 0.5)
+quantile(data$Confirmed, 0.75)
+quantile(data$Confirmed, c(0.25,0.5,0.75))
+```
+
+returns five number summary of confirmed data(min, lower-hinge,median,upper-hinge, max)
+```{r}
+#five number of data
+fivenum(data$Confirmed)
+```
+
+ls.str() displays the internal structure of R object
+```{r}
+## all the named objects at once using ls.str() command
+ls.str(data)
+ls.str(pattern = "data")
+```
+
+rank() command gives rank number like order() command with slight difference. when the values are same the ranks are shared between them but order() doesnt do this
+```{r}
+##rank of data
+rank(data$date)
+rank(data$confirmed)
+```
+
+displays first column
+```{r}
+##to display first column
+head(data[1])
+```
+
+cummulative commands
+```{r}
+##cummulative sum
+head(cumsum(data$Confirmed))
+##cumulative max
+head(cummax(data$Confirmed))
+##cummulative min
+head(cummin(data$Confirmed))
+##cummulative product
+head(cumprod(data$Confirmed))
+```
+
+install.packages() to install packages from repositories
+```{r}
+install.packages("dplyr", repos = "https://cran.us.r-project.org")
+install.packages("magrittr",repos = "https://cran.us.r-project.org")
+install.packages("ggplot2", repos = "https://cran.us.r-project.org")
+```
+
+installed.packages() to see packages which are installed
+```{r}
+##to see installed packages
+head(installed.packages())
+```
+
+search() command to see all the packages available 
+```{r}
+##to see all the packages
+search()
+```
+ 
+library() command to load the packages
+```{r}
+##to Load the packages
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+```
+
+mutate() to add new column for existing dataset
+```{r}
+##to add new column to dataset with values NA
+head(data %>% mutate(necol = NA))
+```
+
+select(-x) command selects the columns based on condition
+```{r}
+
+##select() command to select columns removing confirmed column
+head(select(data, -Confirmed))
+head(data %>% select(-Confirmed))
+```
+
+names() command to view name of column and row
+```{r}
+##row names and column named
+rownames(data)
+colnames(data)
+names(data)
+```
+
+rename() command to change the name of the column
+```{r}
+##to make a copy of dataset and rename column name
+temp = data
+head(temp %>% rename(Confirm = Confirmed))
+```
+
+to change the column position 
+```{r}
+##to bring last column to first
+head(data %>% select(Confirmed,Date))
+head(data %>% select(Confirmed,everything()))
+```
+
+table() command  gives number of time the values repeated
+```{r}
+##to see how many no of times the value repeated
+table(data$Confirmed)
+head(as.table(data$Confirmed))
+```
+
+to check the data is in dataframe or not
+```{r}
+is.data.frame(data)
+is.table(data)
+```
+
+seq_along() function creates vector that contains a sequence of numbers from 1 to the length of the object
+```{r}
+seq_along(data)
+```
+
+stem() command extracts the numeric data and splits them into two parts namely, the stem and leaf
+```{r}
+stem(data$Confirmed)
+##increasing the number of bins by adding a scale = 2 instruction
+stem(data$Confirmed, scale = 2)
+```
+
+filter() gives rows where conditions are true
+```{r}
+##filter() command to get data when confirmed is 0
+filter(data,Confirmed == 0)
+```
+
+to calculate new column based on existing column
+```{r}
+##add new column named "meanconfirmed" which is calculated based on existing "confirmed" column
+head(data %>% mutate(meanconfirmed = Confirmed-mean(Confirmed )))
+```
+
+to plot dotplot with ggplot 
+```{r}
+##the covid cases confirmed on particular dates  is plotted with pointgraph (date vs confirmed)
+ggplot(data = data, aes(x = Date, y = Confirmed))+geom_point()+labs(x = "date", y = "confirmed cases", title = " dotgraph of covid19 cases in kerala", subtitle = "from 31/01/2020 to 10/08/2021")
+```
+
+to plot bargraph with ggplot
+```{r}
+##to plot bargraph of covid cases confirmed on particular dates 
+ggplot(data = data, aes(x = Date, y = Confirmed))+geom_bar(stat = "identity", fill = "purple")+labs(x = "date", y = "confirmed cases", title = "covid19 cases in kerala", subtitle = "from 31/01/2020 to 10/08/2021")
+```
+
+plot() function to create a graphical representation of some data
+```{r}
+##plots line 
+plot(data$Confirmed, type = 'l', col = 'red')
+##plots point
+plot(data$Confirmed, type = "p")
+##plots both line and point
+plot(data$Confirmed, type = 'b', axes = TRUE, ylab = 'Confirmed cases')
+##to plot overplotted points and lines
+plot(data$Confirmed, type = "o")
+##to plot stair steps
+plot(data$Confirmed, type = "s")
+##to plot histogram
+plot(data$Confirmed, type = "h")
+```
+
+barplot() plots bargraph of confirmed data with date
+```{r}
+##bar plot
+barplot(table(data$Confirmed), xlab = 'date', ylab = 'confirmed cases')
+barplot(data$Confirmed, names = data$Date, xlab = 'date', ylab = 'confirmed cases')
+```
+
+installing lubridate package that makes it easier to work with dates. load that package
+```{r}
+## install lubridate package 
+install.packages("lubridate", repos = "https://cran.us.r-project.org")
+library(lubridate)
+```
+
+using mutate() add new columns "year" and "month" by separating year and month form date(year-month-date)
+using group_by() group the data by months and year 
+using summarise() create new dataframe with fewer rows
+```{r}
+##to separate date as month and year 
+new_data= data %>% mutate(year = year(Date), month = month(Date)) %>% group_by(year, month) %>%  summarise(mean_var = mean(Confirmed))
+```
+
+filter() filters the data and gives the data of confirmed cases from date "25-7-2021" to "1-8-2021"
+```{r}
+##filter date and get data between 1aug2021 and 10aug2021
+fildata = data %>% filter(Date >= as.Date("2021-07-25") & Date <= as.Date("2021-08-01"))
+```
+
+pie() to plot piechart of confirmed cases for filtered data(i.e from "25-7-2021" to "1-8-2021" )
+```{r}
+##pie graph
+pie(fildata$Confirmed, labels = fildata$Date)
+```
+
+as.Date() function used to change the format of date
+```{r}
+##create new data>frame with the newly formatted date field
+head(data %>% mutate(Date = as.Date(Date , format = "%Y-%m-%d")))
+```
+
+hist() computes histogram of the given datavalues
+geom_histogram() plots histogram using ggplot. 
+```{r}
+##plot histogram
+hist(data$Confirmed)
+##histogram is plotted with the function hist() and the option freq = False plots probability densities instead of frequencies
+hist(data$Confirmed, col = "blue", xlab = "confirmed cases", ylim = c(0, 0.002), freq = FALSE)
+##using ggplot histogram can be plotted using geom_histogram() function
+ggplot(data, aes(x = Confirmed)) + geom_histogram()
+```
+
+calculating density using density() function
+```{r}
+density(data$Confirmed)
+```
+```{r}
+##to plot histogram
+hist(data$Confirmed, freq = FALSE, main = "Histogram and density")
+##add density to plot
+lines(density(data$Confirmed), lwd = 2, col ="red")
+##plots the density without histogram
+plot(density(Confirmed), lwd = 2, col = "red", main = "Density")
+```
+
+rnorm() function simulates random variates having a specified normal distribution
+```{r}
+##with mean =0 and standarddeviation = 1
+head(rnorm(data$Confirmed, mean = 0 ,sd = 1))
+```
+
+pnorm() function gives the cumulative disttribution function(CDF) of the normal distribution 
+```{r}
+head(pnorm(data$Confirmed, mean = 0 , sd = 1))
+```
+
+qnorm() function calculates the inverse of CDF of the normal distribution
+```{r}
+head(qnorm(data$Confirmed, mean = 0 , sd = 1))
+```
+
+dnorm() function calculates the probability density function of the normal distribution
+```{r}
+head(dnorm(data$Confirmed, mean = 0 , sd = 1))
+```
+
+normal Q-Q plot qqnorm() is a generic function which produces a normal qq plot
+```{r}
+qqnorm(Confirmed)
+qqnorm(Confirmed, main = "qq plot of Confirmed", xlab = "theoretical quantiles", ylab = "quantiles for Confirmed")
+qqline(data$Confirmed, lwd = 2, lty = 6)
+```
+
+t.test() function performs t-tests. t-test used to determine whether the means of two groups are equal to eachother
+```{r}
+##mean specified by the null hypothesis mu = 0
+t.test(Confirmed, mu =5)
+t.test(Confirmed, mu =5, alternative = "greater")
+```
+
+chisq.test() function used to perform chi-square test
+```{r}
+chisq.test(Confirmed)
+```
+
+there are two types of barcharts geom_bar() and geom_col() . geom_bar() makes the height of the bar proportional to the number of cases in each group, geom_col() to represent values in the data
+```{r}
+##basic bar graph
+library(gcookbook)
+ggplot(fildata, aes(x = Date, y = Confirmed))+geom_col()
+ggplot(fildata, aes(x = Date, y = Confirmed))+geom_col(fill = "lightpink", colour = "blue")
+ggplot(fildata, aes(x = Date)) + geom_bar(width = 0.3, position = position_dodge(0.5))
+```
+
+
+filter data by date from 2020-03-09 to 2020-03-20 and the plot bargraph using geom_col in ggplot 
+```{r}
+newdata = data %>% filter(Date >= as.Date("2020-03-09") & Date <= as.Date("2020-03-20"))
+ggplot(newdata, aes(x= Date, y=Confirmed)) + geom_col(position = 'fill') + scale_fill_brewer(palette = "Pastel1")
+
+```
+
+group the data by date and add new column named "percent_confirmed" which is percentage og comfirmed data and plot bargraph date vs percent_confirmed
+```{r}
+## grouping data by Date and calculating percentage of confirmed cases and add that to existing dataset as percent_confirmed using mutate 
+head(data %>% group_by(Date))
+new_data = data %>% group_by(Date) %>% mutate( percent_Confirmed = Confirmed / sum(Confirmed) * 100)
+ggplot(new_data , aes(x = Date, y = percent_Confirmed))+ geom_col()
+```
+
+new columns "year" and "month" is added ang grouping that data by moth and year
+```{r}
+##seperate date into month and year
+data = data %>% mutate(year = year(Date), month = month(Date)) %>% group_by(year, month)
+##stem with conditional statement
+with(data, stem(data$Confirmed[data$year == "2020"]))
+```
+
+plotting bargraph month vs confirmed and adding labels
+```{r}
+##adding labels to a bar graph
+ggplot(data, aes(x= month, y=Confirmed)) + geom_col() + geom_text(aes(label = Confirmed), vjust = -0.2)
+ggplot(data, aes(x= month, y=Confirmed)) + geom_col() + geom_text(aes(label = Confirmed), vjust = 1.5, colour = "white")
+```
+
+to plot boxplots
+```{r}
+## to plot boxplot
+boxplot(data$Confirmed ~ data$year, data = data)
+boxplot(data$month)
+boxplot(data$Confirmed ~ data$month)
+boxplot(data$Confirmed ~ data$year, horizontal = T)
+```
+
+
+plotting line graph in ggplot using geom_line() 
+```{r}
+##to plot linegraph
+ggplot(data, aes(x = month, y = Confirmed))+geom_line(aes(color = year))+labs(x = "date", y = "confirmed cases")
+```
+
+```{r}
+##line graph with points
+ggplot(data, aes(x = month, y= Confirmed)) + geom_area(fill = "blue", alpha = .2) + geom_line()
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line() + geom_point()
+```
+
+```{r}
+##making a line graph with multiple lines(confirmed cases for same month but in 2 different year 2020 and 2021)
+ggplot(data, aes(x = month, y = Confirmed, colour = year)) + geom_line()
+```
+
+```{r}
+##line graph with different colors
+ggplot(data, aes(x = month, y = Confirmed, fill = year)) + geom_line() + geom_point(size = 4, shape = 21)
+```
+
+```{r}
+##line graph with dashed line
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line(linetype = "dashed", size =1, colour = "purple") 
+```
+
+```{r}
+##line graph with dotted line
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line(linetype = "dotted", size =1, colour = "purple")
+```
+
+```{r}
+##line graph with point custom size, shape, colour, fill
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line() + geom_point(size = 4, shape = 22, fill = "pink", colour = "darkred")
+```
+
+```{r}
+##points with white fill
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line(aes(color = year)) + geom_point(size = 4, shape = 21 , fill = "white")
+```
+
+```{r}
+ggplot(data, aes(x = month, y = Confirmed)) + geom_line(aes(color = year)) + geom_point() +scale_y_log10()
+```
+
+
+```{r}
+ggplot(data, aes(x= year, y=Confirmed)) + geom_col(aes(color = month)) + geom_text(aes(label = Confirmed), vjust = -0.2)
+ggplot(data, aes(x= month, y=Confirmed)) + geom_col(aes(color = year)) + geom_text(aes(label = Confirmed),vjust = 1.5, colour = "white")
+ggplot(data , aes(x = year, y = Confirmed))+ geom_col(aes(color = year))
+ggplot(data, aes(x = year)) + geom_bar(width = 0.3, position = position_dodge(0.5))
+```
+ plotting scatterplot
+```{r}
+##scatter plot
+plot(data$month, data$Confirmed, pch = 25)
+```
+
+to get data of confirmed cases in the year 2020 of all the month dated as 01
+```{r}
+## assign each month to the same year and day for plotting
+as.Date(paste0("2020-", data$month, "-01"), "%Y-%m-%d")
+```
+
+plotting bargraph and using facet_wrap() function which partitions a plot into matrix of panels
+```{r}
+##plots confirmed cases in whole year 
+data %>% ggplot(aes(x = year, y= Confirmed)) + geom_bar(stat = "identity", fill = "darkorchid4") + facet_wrap(~ year, ncol = 3) + labs(title = "yearly report", y = "confirmed cases", x= "year") + theme_bw(base_size = 15)
+
+##plots confirmed cases in all months of the year 2020 and 2021
+data %>% ggplot(aes(x = year, y= Confirmed)) + geom_bar(stat = "identity", fill = "darkorchid4") + facet_wrap(~ month, ncol = 3) + labs(title = "monthly report for different year", y = "confirmed cases", x= "year") + theme_bw(base_size = 15)
+
+##plots confirmed cases in all the months
+data %>% ggplot(aes(x = month, y= Confirmed)) + geom_bar(stat = "identity", fill = "darkorchid4") + facet_wrap(~ month, ncol = 3) + labs(title = "report of each month", y = "confirmed cases", x= "year") + theme_bw(base_size = 15)
+
+data %>% ggplot(aes(x = month, y= Confirmed)) + geom_bar(stat = "identity", fill = "darkorchid4") + facet_wrap(~ year, ncol = 3) + labs(title = "yearly report", y = "confirmed cases", x= "year") + theme_bw(base_size = 15)
+```
+
+
+```{r}
+data %>%  mutate(month2 = as.Date(paste0("2020-", month, "-01"), "%Y-%m-%d")) %>%  ggplot(aes(x = month2, y = Confirmed)) + geom_bar(stat = "identity", fill = "darkblue") + facet_wrap( ~ year, ncol = 3) + labs(title = "monthly report", subtite = "data plotted by year", y = "confirmed cases", x = "year") + theme_bw(base_size = 15) + scale_x_date(date_labels = "%b")
+```
+
+plotting point graph
+```{r}
+##plot the data using ggplot2,pipes and facet_wrap
+data  %>% ggplot(aes(x= year, y = Confirmed)) + geom_point(color = "darkorchid4") + facet_wrap( ~ month, ncol = 3) + labs(title = "monthly report", subtite = "use facets to plot by a variable - year", y = "confirmed cases", x = "year") + theme_bw(base_size = 15) 
+```
+
+```{r}
+##plot pointplot the data using ggplot2 and pipes
+data %>% ggplot(aes(x = month, y = Confirmed)) + geom_point(color = "darkorchid4") + labs(title = "confirmed cases in 2020 and 2021", subtitle = "The data frame is sent to the plot using pipes", y = "confirmed cases", x = "month") + theme_bw(base_size = 15)
+
+ggplot(data, aes(x = month, y = Confirmed)) + geom_point(color = "darkorchid4") + labs(title = "confirmed cases in 2020 and 2021", subtitle = "note using pipes", y = "confirmed cases", x = "month") + theme_bw(base_size = 15)
+```
+
+plot of confirmed cases from 9th march to 20th march
+```{r}
+##to plot bargraph of confirmed cases from 9th march to 20th march
+newdata = data %>% filter(Date >= as.Date("2020-03-09") & Date <= as.Date("2020-03-20"))
+newdata %>% ggplot(aes(x = Date, y = Confirmed)) + geom_bar(stat = "identity", fill = "darkorchid4") + facet_wrap( ~year, ncol = 3) + labs( title = "confirmed cases" , subtitle = "data plotted by year",y = "confirmed cases", x = "date") + theme_bw(base_size = 15)
+```
+
+add new column named "month2" which has dates of 2020year and date 01 , and then group the data by month2 and see the summary of confirmed
+```{r}
+##calculate the sum confirmed cases for each month in 2020 and date =01
+data %>%  mutate(month2 = as.Date(paste0("2020-", month, "-01"), "%Y-%m-%d")) %>% group_by(month2) %>% summarise(sum_confirmed = sum(Confirmed))
+```
+
+month and year is grouped and summarise() creates bew variable named "max_conf" 
+```{r}
+## calculate the sum confirmed 
+data %>% group_by(month, year) %>% summarise(max_conf = sum(Confirmed))
+```
+
+with() function evaluates an R expression in an environment constructed based on a dataframe
+```{r}
+with(data, (data$Confirmed[data$year == "2020"]))
+```
+
+pairs() function is used to return a plot matrix, consisting of scatter plots 
+```{r}
+pairs(~ Confirmed + month , data = data)
+```
+
+dotchart() function ismused to create a dot chart of the specified data.A dot chart is defined as a plot which is used to draw a cleveland dot plot.
+```{r}
+dotchart(data$Confirmed)
+```
+aov() function is used to do ANOVA in R . na.omit() function removes all incomplete cases of a dataobject 
+```{r}
+data.aov = na.omit(data$Confirmed)
+data.aov
+summary(data.aov)
+```
+
+frequency polygon geom_freqpoly displays the counts with line , binwidth= the width of the bins
+```{r}
+data %>% ggplot(aes(year)) + geom_freqpoly(binwidth = 0.5)
+data %>% ggplot(aes(month)) + geom_freqpoly(binwidth = 0.1) + scale_y_sqrt()
+```
+
+factor() is used to categorize and store the data having limited number of differnt values. it stores data as a vector of integer valuesre
+```{r}
+factor(data$Confirmed)
+factor(data$year)
+factor(data$Date)
+factor(data$month)
+```
+
+rep() replicates the element of lists and vector
+```{r}
+head(rep(data))
+head(rep(data$Confirmed))
+```
+
+col() function gets the column number of a matrix
+```{r}
+col(data, as.factor = FALSE)
+y <- matrix(rep(1:9),3,3)
+col(y)
+```
+
+to get all the row values of 2nd and 3rd column i.e., confirmed and year 
+```{r}
+x = data[ , 2:3]
+head(x)
+```
+
+colMeans() function gives mean value of the columns in the dataset
+rowMeans() function gives mean value of the rows in the dataset
+colSums() and rowSums() gives the sums of matrix or array columns
+```{r}
+colMeans(x)
+rowMeans(x)
+colSums(x)
+rowSums(x)
+```
+ apply() function used to apply a function across an array, matrix or dataframe
+```{r}
+##vmean on columns
+apply(data[ , 2:3], 2 , mean)
+##mean on rows
+apply(data[ , 2:3], 1 , mean)
+##median
+apply(data[ , 2:3], 2 , median)
+##variance
+apply(data[ , 2:3], 2 , var)
+```
+
+tapply() to summarize using a grouping variable
+```{r}
+tapply(data$Confirmed, data$year, FUN = mean)
+tapply(data$Confirmed, data$year, FUN = var)
+tapply(data$Confirmed, data$year, FUN = sd)
+tapply(data$Confirmed, data$year, FUN = median)
+
+```
+
+na.omit() function removes all incomplete cases of a dataobject 
+```{r}
+head(na.omit(data))
+```
+ object( ) and ls() functions both does same operation
+ object() returns a list of objectnames
+ ls() function is used to list the names of all the objects that are present in working library
+```{r}
+objects(data)
+ls(data)
+```
+
+Simple linear Regression
+lm() function can be used to determine the beta coefficients of liner model
+```{r}
+data_regr = lm(month ~ Confirmed, data)
+data_regr
+##summary
+summary(data_regr)
+##confidence interval
+confint(data_regr)
+cor.test( ~ data$Confirmed + data$month)
+coef(data_regr)
+```
+
+fitted values
+```{r}
+head(fitted(data_regr))
+```
+
+Residuals
+```{r}
+head(residuals(data_regr))
+```
+
+Formula
+```{r}
+formula(data_regr)
+formula(data)
+data_regr$call
+```
+
+using segments() command for Error Bars
+```{r}
+meandata = apply(data[ , 2:3], 2, mean)
+meandata
+sd_data = apply(data[, 2:3], 2, sd)
+sd_data
+sumdata = apply(data[ , 2:3], 2, sum)
+sumdata
+df = sumdata/meandata
+df
+meandata + df
+max(meandata + df)
+maxdata = round(max(meandata + df) + 0.5 , 0)
+maxdata
+plot = barplot(meandata , ylim = c(0 , maxdata))
+plot
+segments(plot , meandata + df, plot , meandata - df)
+segments(plot - 0.2, meandata - df, plot + 0.2, meandata - df)
+box()
+title(ylab = "count")
+```
+
+Creating mathematical expressions
+```{r}
+plot(1:10 , 1:10, type = 'n')
+opt = par(cex = 1.5)
+text(1 , 1, expression(hat(x)))
+text(2 , 2, expression(alpha == x))
+text(3 , 3, expression(beta == y))
+text(4 , 4, expression(frac(x, y)))
+text(5 , 5, expression(sum(x)))
+text(6 , 6, expression(sum(x^2)))
+text(7 , 7, expression(bar(x) == sum(frac(x[i], n), i==1, n)))
+text(8 , 8, expression(sqrt(x)))
+text(9 , 9, expression(sqrt(x , 3)))
+```
+
+aggregate() function splits the data into subsets and computes summary statistics for each subsets and returns the result in agroup by form
+```{r}
+aggregate(data[ , 2:3], by = list(data$Confirmed), FUN = mean)
+aggregate(data$Confirmed ~ data$month, FUN = mean)
+aggregate(data$Confirmed ~ data$month * data$year, FUN = mean)
+aggregate(cbind(data$Confirmed, data$month), by = list(data$year), FUN = mean)
+```
+
+

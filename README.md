@@ -1,6 +1,8 @@
 # covid19-EDA-project
 The visualization of stats and important plots are obtained in order to better understand the impact of covid in Kerala.
 
+Used ggplot2 , dplyr and lubridate packages. ggplot2 for plotting and lubridate for handling data in Date and time format, It identify the order in which the year, month, and day appear in your dates.dplyr for data manipulation.
+
 Covid19 is a disease caused by a new strain of coronavirus, 'CO' stands for corona, 'VI' stands for virus abd 'D' stands for disease.
 from the dataset we can uderstand that the first case of the COVID 19 pandemic in Kerala ( which was also the first confirmed cases in all of India) was confirmed in Thrissur on 30 january 2020. 
 On 12 may 2021 Kerala reported the largest single day spike with 43,529 new cases.
